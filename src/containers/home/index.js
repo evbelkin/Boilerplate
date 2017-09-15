@@ -12,6 +12,9 @@ class Home extends React.Component {
   render() {
     return (
       <div>
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item active">Home</li>
+        </ol>
         <h3>Main page</h3>
         { !this.props.fetching ?
           this.props.news.map(item => {
