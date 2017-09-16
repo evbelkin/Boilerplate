@@ -11,7 +11,9 @@ class Login extends React.Component {
     valid: null
   }
 
-  handleSubmit = () => {
+  handleSubmit = (e) => {
+    e.preventDefault();
+
     let username = this.state.username;
     let password = this.state.password;
 
@@ -49,7 +51,7 @@ class Login extends React.Component {
                 { this.props.message.text }
                 </div>
               : '' }
-            <form>
+            <form onSubmit={ this.handleSubmit }>
               <div className="form-group">
                 <label htmlFor="usernameInput">Username</label>
                 <input
@@ -75,9 +77,8 @@ class Login extends React.Component {
                 />
               </div>
               <button
-                type="button"
+                type="submit"
                 className="btn btn-primary"
-                onClick={ (e) => this.handleSubmit() }
                 disabled={ this.props.fetching }
               >
                 Submit
