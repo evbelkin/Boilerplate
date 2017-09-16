@@ -13,6 +13,7 @@ export const login = ({ username, password }) => {
       let auth = authUser({ username, password })
       dispatch({
         type: LOGIN,
+        username: auth ? username : 'guest',
         loggedIn: auth,
         message: auth ?
           { type: 'success', text:'Вход успешен' } :

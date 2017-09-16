@@ -18,6 +18,5 @@ export const getNavigationLinks = () => {
 
 const LINKS = [
   { id: 'home', title: 'Home', value: '/'},
-  { id: 'about', title: 'About', value: '/about'},
-  { id: 'login', title: 'Login', value: '/login'}
+  { id: 'about', title: 'About', value: '/about'}
 ];

@@ -6,6 +6,7 @@ export const LOGOUT = 'LOGOUT';
 const initialState = {
   loggedIn: false,
   fetching: false,
+  username: 'guest',
   message: {}
 }
 
@@ -22,6 +23,7 @@ export default (state = initialState, action) => {
         ...state,
         loggedIn: action.loggedIn,
         fetching: !state.fetching,
+        username: action.username,
         message: action.message
       }
 
@@ -35,7 +37,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loggedIn: action.loggedIn,
-        fetching: !state.fetching
+        fetching: !state.fetching,
+        message: {}
       }
 
     default:
