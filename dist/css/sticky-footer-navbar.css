@@ -23,7 +23,7 @@ html {
   -------------------------------------------------- */
   /* Not required for template or sticky footer method. */
   
-  body > #root > .main > .container-fluid {
+  body > #root > .main-area > .container {
     padding: 60px 15px 0;
   }
   
