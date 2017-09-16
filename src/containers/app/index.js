@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import Navigation from '../navigation/index';
 import Home from '../home/index';
 import { About } from '../about/index';
@@ -7,10 +8,14 @@ import Login from '../login/index';
 import { Footer } from '../footer/index';
 
 class App extends React.Component {
+  static propTypes = {
+    location: PropTypes.object.isRequired
+  }
+
   render() {
     return (
       <div className="main-area">
-        <Navigation />
+        <Navigation location={ this.props.location } />
         <div className="container">
           <Switch>          
             <Route exact path='/about' component={ About }/>
@@ -24,4 +29,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
