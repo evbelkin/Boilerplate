@@ -2,6 +2,7 @@ export const GET_HOME_REQUESTED = 'GET_HOME_REQUESTED';
 export const GET_HOME = 'GET_HOME';
 
 const initialState = {
+  jumbotron: [],
   news: [],
   fetching: false
 }
@@ -17,6 +18,7 @@ export default (state = initialState, action) => {
       case GET_HOME:
         return {
           ...state,
+          jumbotron: action.jumbotron,
           news: action.news,
           fetching: !state.fetching
         }
