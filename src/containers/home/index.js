@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getHome } from '../../modules/actions/home';
@@ -6,6 +7,13 @@ import { Jumbotron } from './components/jumbotron';
 import { NewsRow } from './components/news-grid';
 
 class Home extends React.Component {
+  static propTypes = {
+    fetching: PropTypes.bool.isRequired,
+    jumbotron: PropTypes.array.isRequired,
+    news: PropTypes.array.isRequired,
+    getHome: PropTypes.func.isRequired
+  }
+
   componentDidMount() {
     this.props.getHome();
   }
