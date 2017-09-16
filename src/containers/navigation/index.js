@@ -1,19 +1,18 @@
 import React from 'react';
-import { push } from 'react-router-redux';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { getNavigationLinks } from '../../modules/actions/navigation';
-import { NavLinks } from './components/nav-links';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import NavLinks from './components/nav-links';
 
 class Navigation extends React.Component {
-  componentDidMount() {
-    this.props.getNavigationLinks();
+  static propTypes = {
+    location: PropTypes.object.isRequired
   }
 
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-light">
         <div className="container">
+          <Link className="navbar-brand" to="/">My application</Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -24,25 +23,12 @@ class Navigation extends React.Component {
             aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          { !this.props.fetching ?
-            <NavLinks links={ this.props.links} />
-            : <span className="navbar-text">Загружаем элементы навигации...</span> }
+          <NavLinks location={ this.props.location } />
         </div>
       </nav>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  links: state.navigation.links,
-  fetching: state.navigation.fetching,
-});
+export default Navigation;
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  getNavigationLinks
-}, dispatch);
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Navigation);
