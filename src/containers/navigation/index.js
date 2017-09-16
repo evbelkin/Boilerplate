@@ -1,25 +1,48 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getNavigationLinks } from '../../modules/actions/navigation';
+import { NavLinks } from './components/nav-links';
 
 class Navigation extends React.Component {
+  componentDidMount() {
+    this.props.getNavigationLinks();
+  }
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-light">
         <div className="container">
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item"><Link to='/' className="nav-link">Home</Link></li>
-              <li className="nav-item"><Link to='/about' className="nav-link">About</Link></li>
-              <li className="nav-item"><Link to='/login' className="nav-link">Login</Link></li>
-            </ul>
-          </div>
+          { !this.props.fetching ?
+            <NavLinks links={ this.props.links} />
+            : <span className="navbar-text">Загружаем элементы навигации...</span> }
         </div>
       </nav>
     );
   }
 }
 
-export default Navigation;
+const mapStateToProps = state => ({
+  links: state.navigation.links,
+  fetching: state.navigation.fetching,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getNavigationLinks
+}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Navigation);
