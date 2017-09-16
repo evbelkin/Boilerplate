@@ -8,22 +8,22 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-    switch (action.type) {
-      case GET_HOME_REQUESTED:
-        return {
-          ...state,
-          fetching: true
-        }
+  switch (action.type) {
+    case GET_HOME_REQUESTED:
+      return {
+        ...state,
+        fetching: true
+      }
   
-      case GET_HOME:
-        return {
-          ...state,
-          jumbotron: action.jumbotron,
-          news: action.news,
-          fetching: !state.fetching
-        }
+    case GET_HOME:
+      return {
+        ...state,
+        jumbotron: action.jumbotron,
+        news: action.news,
+        fetching: !state.fetching
+      }
 
-      default:
-        return state
-    }
+    default:
+      return state
   }
+}
