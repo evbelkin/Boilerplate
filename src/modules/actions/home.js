@@ -18,7 +18,7 @@ export const getHome = () => {
           NEWS.fourth
         ]
       })
-    }, 3000);
+    }, 2000);
   }
 };
 
