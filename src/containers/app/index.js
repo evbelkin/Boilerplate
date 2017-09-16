@@ -9,9 +9,9 @@ import Footer from '../footer/index';
 class App extends React.Component {
   render() {
     return (
-      <div className="main">
+      <div className="main-area">
         <Navigation />
-        <div className="container-fluid" id="content-area">
+        <div className="container">
           <Switch>          
             <Route exact path='/about' component={ About }/>
             <Route exact path='/login' component={ Login }/>
