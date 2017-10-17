@@ -1,14 +1,11 @@
+/* @flow */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import NavLinks from './components/nav-links';
 
-class Navigation extends React.Component {
-  static propTypes = {
-    location: PropTypes.object.isRequired
-  }
-
+class Navigation extends React.Component<{ location: Object }> {
   render() {
+    let props = this.props;
     return (
       <nav className="navbar navbar-expand-lg navbar-light fixed-top bg-light">
         <div className="container">
@@ -23,7 +20,7 @@ class Navigation extends React.Component {
             aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
-          <NavLinks location={ this.props.location } />
+          <NavLinks location={ props.location } />
         </div>
       </nav>
     );

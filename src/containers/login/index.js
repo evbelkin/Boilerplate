@@ -1,14 +1,28 @@
+/* @flow */
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { login } from '../../modules/actions/auth';
 
-class Login extends React.Component {
+type Props = {
+  login: Function,
+  loggedIn: boolean,
+  fetching: boolean,
+  message: { type: string, text: string },
+};
+
+type State = {
+  username: string,
+  password: string,
+  valid: boolean
+};
+
+class Login extends React.Component<Props, State> {
   state = {
     username: '',
     password: '',
-    valid: null
+    valid: false
   }
 
   handleSubmit = (e) => {
@@ -23,7 +37,7 @@ class Login extends React.Component {
       });
     } else {
       this.setState({
-        valid: null
+        valid: false
       }); 
       
       this.props.login({ username, password });
@@ -31,9 +45,10 @@ class Login extends React.Component {
   }
 
   render() {
+    let props = this.props;
     return (
       <div>
-        { this.props.loggedIn ? 
+        { props.loggedIn ? 
           <Redirect to="/home" push /> :
           <div>
             <ol className="breadcrumb">
@@ -44,11 +59,11 @@ class Login extends React.Component {
             { this.state.valid === false ?
                 <div className="alert alert-danger">Поля формы должны быть заполнены!</div>
               : '' }
-            { Object.keys(this.props.message).length ?
+            { Object.keys(props.message).length ?
                 <div
-                  className={ this.props.message.type === 'fail' ? 'alert alert-danger' : 'alert alert-success' }
+                  className={ props.message.type === 'fail' ? 'alert alert-danger' : 'alert alert-success' }
                 >
-                { this.props.message.text }
+                { props.message.text }
                 </div>
               : '' }
             <form onSubmit={ this.handleSubmit }>
@@ -61,7 +76,7 @@ class Login extends React.Component {
                   placeholder="Enter username"
                   value={ this.state.username }
                   onChange={ (e) => this.setState({ username: e.target.value }) }
-                  disabled={ this.props.fetching }
+                  disabled={ props.fetching }
                 />
               </div>
               <div className="form-group">
@@ -73,13 +88,13 @@ class Login extends React.Component {
                   placeholder="Password"
                   value={ this.state.password }
                   onChange={ (e) => this.setState({ password: e.target.value }) }
-                  disabled={ this.props.fetching }
+                  disabled={ props.fetching }
                 />
               </div>
               <button
                 type="submit"
                 className="btn btn-primary"
-                disabled={ this.props.fetching }
+                disabled={ props.fetching }
               >
                 Submit
               </button>

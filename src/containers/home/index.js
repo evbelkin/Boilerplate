@@ -1,18 +1,25 @@
+/* @flow */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { getHome } from '../../modules/actions/home';
-import { Jumbotron } from './components/jumbotron';
-import { NewsRow } from './components/news-grid';
+import Jumbotron from './components/jumbotron';
+import NewsRow from './components/news-grid';
 
-class Home extends React.Component {
-  static propTypes = {
-    fetching: PropTypes.bool.isRequired,
-    jumbotron: PropTypes.array.isRequired,
-    news: PropTypes.array.isRequired,
-    getHome: PropTypes.func.isRequired
-  }
+type Props = {
+  fetching: boolean,
+  jumbotron: Array<{ id: number, title: string, body: string }>,
+  news: Array<{ id: number, title: string, body: string }>,
+  getHome: Function
+};
+
+type State = {
+  fetching: boolean,
+  jumbotron: Array<{ id: number, title: string, body: string }>,
+  news: Array<{ id: number, title: string, body: string }>
+};
+
+class Home extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.getHome();
