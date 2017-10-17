@@ -1,10 +1,33 @@
-export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
-export const LOGIN = 'LOGIN';
-export const LOGOUT_REQUESTED = 'LOGOUT_REQUESTED';
-export const LOGOUT = 'LOGOUT';
+/* @flow */
 
-export const login = ({ username, password }) => {
-  return dispatch => {
+export const LOGIN_REQUESTED: string = 'LOGIN_REQUESTED';
+export const LOGIN: string = 'LOGIN';
+export const LOGOUT_REQUESTED: string = 'LOGOUT_REQUESTED';
+export const LOGOUT: string = 'LOGOUT';
+
+const USERS: Array<{ id: number, username: string, password: string }> = [
+  { id: 1, username: 'admin', password: 'admin' },
+  { id: 2, username: 'user', password: 'user' }
+];
+
+type funcArgs = {
+  username: string, 
+  password: string
+};
+
+type Action = 
+ | { type: "LOGIN_REQUESTED" }
+ | { type: "LOGIN", username: string, loggedIn: boolean, message: { type?: string, text?: string } }
+ | { type: "LOGOUT_REQUESTED" }
+ | { type: "LOGOUT", loggedIn: boolean };
+
+type GetState = () => State;
+type PromiseAction = Promise<Action>;
+type ThunkAction = (dispatch: Dispatch, getState: GetState) => any;
+type Dispatch = (action: Action | ThunkAction | PromiseAction | Array<Action>) => any;
+
+export const login = ({ username, password }:funcArgs): ThunkAction => {
+  return (dispatch, getState) => {
     dispatch({
       type: LOGIN_REQUESTED
     });
@@ -23,8 +46,8 @@ export const login = ({ username, password }) => {
   }
 };
 
-export const logout = () => {
-  return dispatch => {
+export const logout = (): ThunkAction => {
+  return (dispatch, getState) => {
     dispatch({
       type: LOGOUT_REQUESTED
     });
@@ -38,7 +61,7 @@ export const logout = () => {
   }
 };
 
-function authUser ({ username, password }) {
+function authUser ({ username, password }:funcArgs): boolean {
 
   let auth = USERS.filter(item => {
     return item.username === username && item.password === password;
@@ -46,8 +69,3 @@ function authUser ({ username, password }) {
 
   return auth.length ? true : false;
 }
-
-const USERS = [
-  { id: 1, username: 'admin', password: 'admin' },
-  { id: 2, username: 'user', password: 'user' }
-];

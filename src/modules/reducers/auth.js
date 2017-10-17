@@ -1,7 +1,16 @@
-export const LOGIN_REQUESTED = 'LOGIN_REQUESTED';
-export const LOGIN = 'LOGIN';
-export const LOGOUT_REQUESTED = 'LOGOUT_REQUESTED';
-export const LOGOUT = 'LOGOUT';
+/* @flow */
+
+export const LOGIN_REQUESTED: string = 'LOGIN_REQUESTED';
+export const LOGIN: string = 'LOGIN';
+export const LOGOUT_REQUESTED: string = 'LOGOUT_REQUESTED';
+export const LOGOUT: string = 'LOGOUT';
+
+type State = {
+  loggedIn: boolean,
+  fetching: boolean,
+  username: string,
+  message: { type?: string, text?: string }
+};
 
 const initialState = {
   loggedIn: false,
@@ -10,7 +19,7 @@ const initialState = {
   message: {}
 }
 
-export default (state = initialState, action) => {
+export default (state: State = initialState, action: Object): State => {
   switch (action.type) {
     case LOGIN_REQUESTED:
       return {

@@ -9,20 +9,20 @@ type Props = {
   login: Function,
   loggedIn: boolean,
   fetching: boolean,
-  message: { type: string, text: string },
+  message: { type?: string, text?: string },
 };
 
 type State = {
   username: string,
   password: string,
-  valid: boolean
+  valid: string
 };
 
 class Login extends React.Component<Props, State> {
   state = {
     username: '',
     password: '',
-    valid: false
+    valid: 'none'
   }
 
   handleSubmit = (e) => {
@@ -33,11 +33,11 @@ class Login extends React.Component<Props, State> {
 
     if (username === '' || password === '') {
       this.setState({
-        valid: false
+        valid: 'error'
       });
     } else {
       this.setState({
-        valid: false
+        valid: 'none'
       }); 
       
       this.props.login({ username, password });
@@ -56,7 +56,7 @@ class Login extends React.Component<Props, State> {
               <li className="breadcrumb-item active">Login</li>
             </ol>
             <h3>Login page</h3>
-            { this.state.valid === false ?
+            { this.state.valid === 'error' ?
                 <div className="alert alert-danger">Поля формы должны быть заполнены!</div>
               : '' }
             { Object.keys(props.message).length ?
